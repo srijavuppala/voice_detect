@@ -25,12 +25,6 @@ smart-home-voice-control/
 ├── 📦 package.json               # Project metadata & scripts
 └── 🚫 .gitignore                 # Git exclusion rules
 
-Excluded from git:
-├── 🚫 .claude/                   # Claude Code settings
-├── 🚫 start_whisper.bat         # Windows launch script
-├── 🚫 start_whisper.sh          # Unix launch script
-└── 🚫 tests/                    # Test files (development only)
-```
 
 ## File Descriptions
 
