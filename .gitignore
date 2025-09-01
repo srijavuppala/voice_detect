@@ -1,8 +1,97 @@
-/.claude
-/WHISPER_SETUP.md
-/diagnostic.js
-/quick_test.html
-/start_whisper.bat
-/start_whisper.sh
-/test_commands.js
-/whisper_server.py
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Node modules (if using npm for any tools)
+node_modules/
+
+# Whisper models cache
+.cache/
+models/
+
+# Local development
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Backup files
+*.bak
+*.backup
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Audio files (for testing)
+*.wav
+*.mp3
+*.m4a
+recordings/
+
+# Claude Code specific files
+.claude/
+*.claude
+
+# Test files (not for production)
+tests/
+test_*/
+*_test.js
+*_test.html
+diagnostic.js
+command_test.js
+quick_test.html
+
+# Local script files (environment specific)
+start_whisper.bat
+start_whisper.sh
+start_*.bat
+start_*.sh

@@ -20,15 +20,7 @@ class SmartHomeVoiceControl {
         this.whisperServerUrl = 'http://localhost:5000';
         this.whisperAvailable = false;
         
-        // Performance monitoring
-        this.performanceMetrics = {
-            touchResponse: [],
-            voiceRecognition: [],
-            commandProcessing: [],
-            uiUpdate: [],
-            overall: []
-        };
-        this.maxMetricSamples = 10;
+        // Remove performance monitoring
         
         this.init();
     }
@@ -74,6 +66,7 @@ class SmartHomeVoiceControl {
         this.recognition.continuous = true;
         this.recognition.interimResults = true;
         this.recognition.lang = 'en-US';
+        
 
         this.recognition.onstart = () => {
             this.isListening = true;
@@ -162,19 +155,22 @@ class SmartHomeVoiceControl {
         clearDebugButton.addEventListener('click', () => {
             this.clearDebugPanel();
         });
-
-        // Performance metrics toggle
-        const toggleMetricsButton = document.getElementById('toggle-metrics');
-        const metricsContent = document.getElementById('performance-content');
         
-        if (toggleMetricsButton && metricsContent) {
-            toggleMetricsButton.addEventListener('click', () => {
-                const isHidden = metricsContent.classList.contains('hidden');
-                metricsContent.classList.toggle('hidden');
-                toggleMetricsButton.textContent = isHidden ? 'Hide' : 'Show';
+        // Quick commands toggle
+        const toggleCommandsButton = document.getElementById('toggle-commands');
+        const commandsContent = document.getElementById('quick-commands');
+        
+        if (toggleCommandsButton && commandsContent) {
+            toggleCommandsButton.addEventListener('click', () => {
+                const isHidden = commandsContent.classList.contains('hidden');
+                commandsContent.classList.toggle('hidden');
+                toggleCommandsButton.textContent = isHidden ? 'Hide' : 'Show';
             });
         }
         
+        // Quick command buttons
+        this.setupQuickCommandButtons();
+
         // Keyboard shortcuts for accessibility
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey || e.metaKey) {
@@ -212,6 +208,9 @@ class SmartHomeVoiceControl {
         
         // Setup device card click handlers
         this.setupDeviceCardHandlers();
+        
+        // Setup quick command buttons
+        this.setupQuickCommandButtons();
     }
     
     setupVibrationFeedback() {
@@ -222,6 +221,30 @@ class SmartHomeVoiceControl {
             }
             return originalExecuteCommand(command);
         };
+    }
+    
+    setupQuickCommandButtons() {
+        // Add click handlers to all quick command buttons
+        document.querySelectorAll('.command-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const command = button.dataset.command;
+                if (!command) return;
+                
+                console.log('Quick command clicked:', command);
+                
+                // Visual feedback
+                button.classList.add('executing');
+                setTimeout(() => {
+                    button.classList.remove('executing');
+                }, 1000);
+                
+                // Execute the command
+                this.processCommand(command, 1);
+                this.addToDebugPanel(`Quick command: "${command}"`, 'success');
+            });
+        });
     }
     
     setupDeviceCardHandlers() {
@@ -1164,6 +1187,7 @@ Keyboard shortcuts:
             'kitchen': {
                 lights: 0,
                 thermostat: 68,
+                music: 'stopped',
                 security: 'disarmed'
             }
         };
@@ -1237,6 +1261,11 @@ Keyboard shortcuts:
         console.log('Parsed result:', parsed);
         
         if (parsed) {
+            console.log('✅ Command parsed successfully');
+            console.log(`   Device: ${parsed.device}`);
+            console.log(`   Room: ${parsed.room}`);
+            console.log(`   Action: ${parsed.action}`);
+            console.log(`   Value: ${parsed.value}`);
             console.log('Executing...');
             this.executeCommand(parsed);
         } else {
@@ -1246,6 +1275,61 @@ Keyboard shortcuts:
         console.log('Current device states:');
         console.log(JSON.stringify(this.devices, null, 2));
         console.log('==========================================\n');
+    }
+    
+    // Quick test function for all common commands
+    testAllCommands() {
+        console.log('🚀 TESTING ALL COMMANDS');
+        console.log('=====================================');
+        
+        const commands = [
+            'turn on living room lights',
+            'turn off living room lights', 
+            'turn on bedroom lights',
+            'turn off bedroom lights',
+            'turn on kitchen lights', 
+            'turn off kitchen lights',
+            'play music in living room',
+            'stop music in living room',
+            'play music in bedroom',
+            'stop music in bedroom',
+            'play music in kitchen',
+            'stop music in kitchen',
+            'arm security',
+            'disarm security'
+        ];
+        
+        commands.forEach(command => {
+            setTimeout(() => this.testCommand(command), 100);
+        });
+        
+        console.log('✅ ALL TESTS QUEUED');
+        console.log('=====================================');
+    }
+    
+    // Check if all device status elements exist in HTML
+    checkDeviceUIMapping() {
+        console.log('\n🔍 CHECKING DEVICE-UI MAPPING');
+        console.log('==========================================');
+        
+        Object.keys(this.devices).forEach(room => {
+            console.log(`\n🏠 Room: ${room}`);
+            Object.keys(this.devices[room]).forEach(device => {
+                const statusId = `${room}-${device}-status`;
+                const element = document.getElementById(statusId);
+                const deviceCard = document.querySelector(`[data-room="${room}"] [data-device="${device}"]`);
+                
+                console.log(`  📱 Device: ${device}`);
+                console.log(`    Status ID: ${statusId} - ${element ? '✅ Found' : '❌ Missing'}`);
+                console.log(`    Device Card: ${deviceCard ? '✅ Found' : '❌ Missing'}`);
+                
+                if (!element || !deviceCard) {
+                    console.error(`    ⚠️ MAPPING ISSUE: ${device} in ${room}`);
+                }
+            });
+        });
+        
+        console.log('\n==========================================');
     }
     
     // Debug function to reset and reinitialize devices
@@ -1280,5 +1364,13 @@ document.addEventListener('DOMContentLoaded', () => {
     window.smartHomeApp = app;
     
     console.log('🏠 Smart Home Voice Control initialized');
-    console.log('📝 For testing, open console and type: testCommands()');
+    console.log('📝 For testing, open console and type:');
+    console.log('  - smartHomeApp.testCommand("turn on bedroom lights")');
+    console.log('  - smartHomeApp.testAllCommands()');
+    console.log('  - smartHomeApp.checkDeviceUIMapping()');
+    
+    // Auto-check device mapping on startup
+    setTimeout(() => {
+        app.checkDeviceUIMapping();
+    }, 2000);
 });

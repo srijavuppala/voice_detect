@@ -132,6 +132,18 @@
                             </div>
                         </div>
 
+                        <div class="device-card" data-device="music">
+                            <div class="device-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                                </svg>
+                            </div>
+                            <div class="device-info">
+                                <div class="device-name">Music</div>
+                                <div class="device-status" id="kitchen-music-status">Stopped</div>
+                            </div>
+                        </div>
+
                         <div class="device-card" data-device="security">
                             <div class="device-icon">
                                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -148,31 +160,54 @@
             </div>
 
             <div class="info-panels">
-                <div class="performance-panel">
+                <div class="quick-commands-panel">
                     <div class="panel-header">
-                        <h3>Performance Metrics</h3>
-                        <button id="toggle-metrics" class="toggle-btn">Hide</button>
+                        <h3>Quick Commands</h3>
+                        <button id="toggle-commands" class="toggle-btn">Hide</button>
                     </div>
-                    <div id="performance-content" class="metrics-content">
-                        <div class="metric-row">
-                            <span class="metric-label">Touch Response:</span>
-                            <span id="touch-latency" class="metric-value">--ms</span>
+                    <div id="quick-commands" class="quick-commands-content">
+                        <div class="command-category">
+                            <h4>Lights</h4>
+                            <div class="command-buttons">
+                                <button class="command-btn" data-command="turn on living room lights">Living Room On</button>
+                                <button class="command-btn" data-command="turn off living room lights">Living Room Off</button>
+                                <button class="command-btn" data-command="turn on bedroom lights">Bedroom On</button>
+                                <button class="command-btn" data-command="turn off bedroom lights">Bedroom Off</button>
+                                <button class="command-btn" data-command="turn on kitchen lights">Kitchen On</button>
+                                <button class="command-btn" data-command="turn off kitchen lights">Kitchen Off</button>
+                            </div>
                         </div>
-                        <div class="metric-row">
-                            <span class="metric-label">Voice Recognition:</span>
-                            <span id="voice-latency" class="metric-value">--ms</span>
+                        
+                        <div class="command-category">
+                            <h4>Music</h4>
+                            <div class="command-buttons">
+                                <button class="command-btn" data-command="play music in living room">Play Living Room</button>
+                                <button class="command-btn" data-command="stop music in living room">Stop Living Room</button>
+                                <button class="command-btn" data-command="play music in bedroom">Play Bedroom</button>
+                                <button class="command-btn" data-command="stop music in bedroom">Stop Bedroom</button>
+                                <button class="command-btn" data-command="play music in kitchen">Play Kitchen</button>
+                                <button class="command-btn" data-command="stop music in kitchen">Stop Kitchen</button>
+                            </div>
                         </div>
-                        <div class="metric-row">
-                            <span class="metric-label">Command Processing:</span>
-                            <span id="command-latency" class="metric-value">--ms</span>
+                        
+                        <div class="command-category">
+                            <h4>Temperature</h4>
+                            <div class="command-buttons">
+                                <button class="command-btn" data-command="set temperature to 72">Set 72°F</button>
+                                <button class="command-btn" data-command="set temperature to 68">Set 68°F</button>
+                                <button class="command-btn" data-command="set temperature to 75">Set 75°F</button>
+                            </div>
                         </div>
-                        <div class="metric-row">
-                            <span class="metric-label">UI Update:</span>
-                            <span id="ui-latency" class="metric-value">--ms</span>
-                        </div>
-                        <div class="metric-row">
-                            <span class="metric-label">Overall Experience:</span>
-                            <span id="overall-rating" class="metric-rating">Excellent</span>
+                        
+                        <div class="command-category">
+                            <h4>Security & Scenes</h4>
+                            <div class="command-buttons">
+                                <button class="command-btn" data-command="arm security">Arm Security</button>
+                                <button class="command-btn" data-command="disarm security">Disarm Security</button>
+                                <button class="command-btn" data-command="movie mode">Movie Mode</button>
+                                <button class="command-btn" data-command="goodnight">Goodnight</button>
+                                <button class="command-btn" data-command="wake up">Wake Up</button>
+                            </div>
                         </div>
                     </div>
                 </div>

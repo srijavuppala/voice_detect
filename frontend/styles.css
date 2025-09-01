@@ -444,6 +444,78 @@ body {
     color: #ef4444;
 }
 
+/* Quick Commands Styling */
+.quick-commands-panel {
+    background: rgba(30, 41, 59, 0.9);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.quick-commands-content {
+    transition: all 0.3s ease;
+}
+
+.quick-commands-content.hidden {
+    display: none;
+}
+
+.command-category {
+    margin-bottom: 20px;
+}
+
+.command-category:last-child {
+    margin-bottom: 0;
+}
+
+.command-category h4 {
+    color: #3b82f6;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.command-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+}
+
+.command-btn {
+    background: rgba(51, 65, 85, 0.6);
+    color: #e2e8f0;
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.command-btn:hover {
+    background: rgba(59, 130, 246, 0.3);
+    border-color: rgba(59, 130, 246, 0.5);
+    transform: translateY(-1px);
+    color: #ffffff;
+}
+
+.command-btn:active {
+    transform: translateY(0);
+    background: rgba(59, 130, 246, 0.5);
+}
+
+.command-btn.executing {
+    background: rgba(16, 185, 129, 0.3);
+    border-color: rgba(16, 185, 129, 0.5);
+    color: #10b981;
+    animation: pulse 1s ease-in-out;
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 15px;
@@ -494,8 +566,17 @@ body {
         margin-top: 15px;
     }
 
-    .command-reference, .debug-panel {
+    .quick-commands-panel, .debug-panel {
         padding: 15px;
+    }
+    
+    .command-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .command-btn {
+        font-size: 0.8rem;
+        padding: 6px 8px;
     }
 }
 
@@ -523,8 +604,18 @@ body {
     }
 
     .room-card,
+    .quick-commands-panel,
     .debug-panel {
         padding: 15px;
+    }
+    
+    .command-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .command-btn {
+        font-size: 0.75rem;
+        padding: 8px 10px;
     }
 }
 
